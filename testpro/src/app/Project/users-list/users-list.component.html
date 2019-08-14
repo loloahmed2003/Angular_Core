@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="logout">
+    <button mat-stroked-button (click)="onLogout()">Log Out</button>
+  </div>
+  <div class="col-md-5">
+
+    <form class="example-form mt-5 mb-5" #formRef="ngForm">
+
+      <div class="text-danger" *ngIf="nameRef.invalid">
+        <p *ngIf="nameRef.errors?.rangeLength">3 digits and 10 digits</p>
+        <p *ngIf="nameRef.errors?.pattern">Wrong Name</p>
+      </div>
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Enter Your Full Name" required [rangeLength]="[3, 20]" [pattern]="'^[a-zA-Z ]*$'"
+          #nameRef="ngModel" name="Name" [(ngModel)]="newUser.Name">
+      </mat-form-field>
+
+
+      <div class="text-danger" *ngIf="EmailRef.invalid">
+        <p *ngIf="EmailRef.errors?.email">Not Valid</p>
+        <!-- <p *ngIf="EmailRef.errors?.pattern">Wrong</p>
+          [pattern]="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" -->
+
+      </div>
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Enter Your Email" required email #EmailRef="ngModel" name="Email" [(ngModel)]="newUser.Email">
+      </mat-form-field>
+
+
+
+      <div>
+        <button class="mr-3" mat-raised-button [disabled]="formRef.invalid" (click)="addNewUser()">Add</button>
+
+        <button mat-raised-button [disabled]="formRef.invalid" (click)="EditUser()">Update</button>
+      </div>
+    </form>
+
+
+  </div>
+
+  <div class="col-md-7">
+
+    <table class="table table-hover mat-elevation-z8">
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Is Active</th>
+        <th></th>
+      </tr>
+
+      <ng-container *ngFor="let item of users">
+        <tr *ngIf="item.IsActive === true">
+          <td>{{item.Name}}</td>
+          <td>{{item.Email}}</td>
+          <td>{{item.IsActive}}</td>
+          <td>
+            <a class="fa fa-trash fa-lg text-danger mr-5" (click)="DeleteUser(item.Id)"></a>
+            <a class="fa fa-edit fa-lg text-warning" (click)="GetUserData(item.Id)"></a>
+          </td>
+        </tr>
+      </ng-container>
+    </table>
+
+    <!-- <table mat-table [dataSource]="users" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="ID">
+          <th class="m-2" mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+          <td class="m-2" mat-cell *matCellDef="let element"> {{element.ID}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="Name">
+          <th class="p-2" mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td class="p-2" mat-cell *matCellDef="let element"> {{element.Name}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="IsActive">
+          <th class="p-2" mat-header-cell *matHeaderCellDef mat-sort-header> Is Active </th>
+          <td class="p-2" mat-cell *matCellDef="let element"> {{element.IsActive}} </td>
+        </ng-container>
+    
+    
+        <ng-container matColumnDef="Operations">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-stroked-button (click)="GetUserData(element.Id)">Edit</button>
+            <button mat-fab class="m-3" (click)="DeleteUser(element.Id)">Delete</button>
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table> -->
+
+  </div>
+</div>

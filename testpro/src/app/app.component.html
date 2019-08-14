@@ -1,0 +1,20 @@
+<div class="container">
+
+  <h1 class="display-4 text-center">Excel Systems App</h1>
+
+  <mat-menu #appMenu="matMenu">
+      <button mat-menu-item routerLink="/user">User List</button>
+      <button mat-menu-item routerLink="/register">Registration</button>
+      <button mat-menu-item routerLink="/login">Login</button>      
+    </mat-menu>
+    
+    <button mat-icon-button [matMenuTriggerFor]="appMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+
+
+  <router-outlet></router-outlet>
+  
+
+</div>
